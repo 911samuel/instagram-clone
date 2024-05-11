@@ -86,22 +86,18 @@ This project is a mobile app built with React Native that aims to replicate the 
    Open the Expo app on your mobile device or use an emulator to run the app.
 
 
-### Run The Service
+### Screenshots
 
-- List of steps to run the service (e.g. docker commands).
 
-### Microservices
 
-- List of microservices, if any, that this repo uses.
 
-## Testing
 
-- Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
+
 
 ## Contribute
 
-- Any instructions needed to help others contribute to this repository.
+- Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
 
-## Deployment
+## License
 
-- Step-by-step instructions for updating the code.
+- This project is licensed under the MIT License.
