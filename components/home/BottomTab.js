@@ -3,9 +3,10 @@ import { Entypo } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Feather } from '@expo/vector-icons';
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Divider } from "react-native-elements";
 
 import userStories from "../../data/userStories";
-import { Divider } from "react-native-elements";
+
 
 function BottomTab() {
   const [activeTab, setActiveTab] = useState("home");
