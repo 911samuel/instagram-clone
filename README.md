@@ -86,13 +86,9 @@ This project is a mobile app built with React Native that aims to replicate the 
    Open the Expo app on your mobile device or use an emulator to run the app.
 
 
-### Screenshots
+## Screenshots
 
-
-
-
-
-
+![home](https://github.com/911samuel/instagram-clone/assets/114469939/db3f044e-3ec4-410b-8ba8-e39166e64458)
 
 ## Contribute
 
