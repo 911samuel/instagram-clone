@@ -3,6 +3,9 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import { View, TextInput, Button, Text, Image } from "react-native";
 import { Divider } from "react-native-elements";
+import { useNavigation } from "@react-navigation/native";
+import validUrl from "valid-url";
+
 
 const uploadPostSchema = Yup.object().shape({
   imageUrl: Yup.string().url().required("A URL is required"),
@@ -11,13 +14,14 @@ const uploadPostSchema = Yup.object().shape({
 
 function FormikPostUploader() {
   const [thumbNail, setThumbNail] = useState("");
+  const navigation = useNavigation();
 
   const img = `https://picsum.photos/200/200`;
   return (
     <Formik
       initialValues={{ caption: "", imageUrl: "" }}
       onSubmit={(values) => {
-        console.log(values);
+        navigation.goBack();
       }}
       validationSchema={uploadPostSchema}
       validateOnMount={true}
@@ -40,7 +44,7 @@ function FormikPostUploader() {
             }}
           >
             <Image
-              source={{ uri: thumbNail ? thumbNail : img }}
+              source={{ uri: validUrl.isUri(thumbNail) ? thumbNail : img }}
               style={{ width: 100, height: 100 }}
             />
             <View style={{ flex: 1, marginLeft: 12 }}>
