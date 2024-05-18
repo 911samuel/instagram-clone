@@ -1,25 +1,28 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native"; 
 import FormikPostUploader from "./FormikPostUploader";
 
 const AddNewPost = () => {
+  const navigation = useNavigation(); 
   return (
     <View style={styles.container}>
-          <Header />
-          <FormikPostUploader />
+      <Header />
+      <FormikPostUploader />
     </View>
   );
 };
 
 const Header = () => {
+  const navigation = useNavigation(); 
   return (
     <View style={styles.headerContainer}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
         <Ionicons name="chevron-back" size={30} color="white" />
       </TouchableOpacity>
       <Text style={styles.headerText}>NEW POST</Text>
-      <Text></Text>
+      <View style={{ width: 30 }} /> 
     </View>
   );
 };
@@ -37,7 +40,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "700",
     fontSize: 20,
-    marginLeft: 27.5,
   },
 });
 

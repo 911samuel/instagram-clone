@@ -4,10 +4,10 @@ import React from "react";
 import GlobalStyles from "../GlobalStyles";
 import AddNewPost from "../components/new post/AddNewPost";
 
-const NewPostScreen = () => {
+const NewPostScreen = (navigation) => {
   return (
     <SafeAreaView style={[GlobalStyles.droidSafeArea, styles.container]}>
-      <AddNewPost />
+      <AddNewPost navigation={ navigation } />
     </SafeAreaView>
   );
 };
