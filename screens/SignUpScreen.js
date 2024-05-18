@@ -3,7 +3,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import SignupForm from "../components/signup/SignupForm"
 
-const SignUpScreen = () => {
+const SignUpScreen = ({navigation}) => {
   return (
     <View style={styles.conatiner}>
       <View style={styles.logoContainer}>
@@ -12,7 +12,7 @@ const SignUpScreen = () => {
           style={{ width: 100, height: 100 }}
         />
       </View>
-      <SignupForm />
+      <SignupForm navigation={navigation} />
     </View>
   );
 };
