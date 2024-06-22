@@ -6,10 +6,14 @@ import {
   Pressable,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Validator from "email-validator";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { app } from "../../firebase";
 
 const SignUp = ({navigation}) => {
   const SignUpSchema = Yup.object().shape({
@@ -22,12 +26,30 @@ const SignUp = ({navigation}) => {
       .min(8, "Password must be at least 8 characters"),
   });
 
+  const onSignup = async (email: string, password: string, username: string) => {
+    const auth = getAuth();
+    const firestore = getFirestore(app);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setDoc(doc(firestore, "users", user.uid), {
+        email: user.email,
+        username: username,
+      });
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        Alert.alert("Error", errorMessage);
+      });
+  };
+
   return (
     <View style={styles.wrapper}>
       <Formik
         initialValues={{ email: "", username: "", password: "" }}
         onSubmit={(values) => {
-          console.log(values);
+          onSignup(values.email, values.password, values.username)
         }}
         validationSchema={SignUpSchema}
         validateOnMount={true}
@@ -168,3 +190,7 @@ const styles = StyleSheet.create({
 });
 
 export default SignUp;
+function then(arg0: (userCredential: any) => void) {
+  throw new Error("Function not implemented.");
+}
+
