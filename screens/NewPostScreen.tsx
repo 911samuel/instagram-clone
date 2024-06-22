@@ -4,7 +4,7 @@ import React from "react";
 import GlobalStyles from "../GlobalStyles";
 import AddNewPost from "../components/new post/AddNewPost";
 
-const NewPostScreen = (navigation) => {
+const NewPostScreen = ({navigation}) => {
   return (
     <SafeAreaView style={[GlobalStyles.droidSafeArea, styles.container]}>
       <AddNewPost navigation={ navigation } />

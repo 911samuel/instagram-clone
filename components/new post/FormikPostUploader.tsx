@@ -84,7 +84,7 @@ function FormikPostUploader() {
           {touched.caption && errors.caption && (
             <Text style={{ color: "red" }}>{errors.caption}</Text>
           )}
-          <Button onPress={handleSubmit} title="Share" disabled={!isValid} />
+          <Button onPress={() => handleSubmit()} title="Share" disabled={!isValid} />
         </>
       )}
     </Formik>

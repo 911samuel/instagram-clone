@@ -11,12 +11,9 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Validator from "email-validator";
 
-const SignUp = ({navigation}) => {
-  const SignUpSchema = Yup.object().shape({
+const LoginForm = ({ navigation }) => {
+  const LoginFormSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("An email is required"),
-    username: Yup.string()
-      .required("A username is required")
-      .min(2, "Too short"),
     password: Yup.string()
       .required("Password is required")
       .min(8, "Password must be at least 8 characters"),
@@ -25,11 +22,11 @@ const SignUp = ({navigation}) => {
   return (
     <View style={styles.wrapper}>
       <Formik
-        initialValues={{ email: "", username: "", password: "" }}
+        initialValues={{ email: "", password: "" }}
         onSubmit={(values) => {
           console.log(values);
         }}
-        validationSchema={SignUpSchema}
+        validationSchema={LoginFormSchema}
         validateOnMount={true}
       >
         {({
@@ -53,7 +50,7 @@ const SignUp = ({navigation}) => {
               ]}
             >
               <TextInput
-                placeholder="Email"
+                placeholder="Phone number, username or email"
                 placeholderTextColor="#444"
                 autoCapitalize="none"
                 keyboardType="email-address"
@@ -62,27 +59,6 @@ const SignUp = ({navigation}) => {
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
                 value={values.email}
-              />
-            </View>
-            <View
-              style={[
-                styles.inputField,
-                {
-                  borderColor:
-                    values.username.length < 1 || values.username.length >= 2
-                      ? "#ccc"
-                      : "red",
-                },
-              ]}
-            >
-              <TextInput
-                placeholder="Username"
-                placeholderTextColor="#444"
-                autoCapitalize="none"
-                textContentType="username"
-                onChangeText={handleChange("username")}
-                onBlur={handleBlur("username")}
-                value={values.username}
               />
             </View>
             <View
@@ -109,10 +85,10 @@ const SignUp = ({navigation}) => {
               />
             </View>
             <Pressable
-              onPress={handleSubmit}
+              onPress={() => handleSubmit()}
               disabled={!isValid}
               style={({ pressed }) => [
-                styles.button(isValid),
+                styles.button,
                 {
                   backgroundColor: pressed
                     ? "#0072D8"
@@ -122,12 +98,12 @@ const SignUp = ({navigation}) => {
                 },
               ]}
             >
-              <Text style={styles.buttonText}>Sign Up</Text>
+              <Text style={styles.buttonText}>Log in</Text>
             </Pressable>
             <View style={styles.signupContainer}>
-              <Text>Already have an account? </Text>
-              <TouchableOpacity onPress={() => navigation.push("SignInScreen")}>
-                <Text style={{ color: "#6BB0F5" }}>Log In</Text>
+              <Text>Don't have an account?</Text>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Text style={{ color: "#6BB0F5" }}> Sign Up</Text>
               </TouchableOpacity>
             </View>
           </>
@@ -148,13 +124,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 1,
   },
-  button: (isValid) => ({
-    backgroundColor: isValid ? "#0096F6" : "#9ACAF7",
+  button: {
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 4,
     minHeight: 42,
-  }),
+  },
   buttonText: {
     fontWeight: "600",
     color: "#fff",
@@ -165,7 +140,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     marginTop: 50,
-  }
+  },
 });
 
-export default SignUp;
+export default LoginForm;
