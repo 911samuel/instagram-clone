@@ -33,23 +33,23 @@ const SignUp = ({navigation}) => {
   }
 
  const onSignup = async (email: string, password: string, username: string) => {
-   const auth = getAuth();
-   const firestore = getFirestore(app);
-   createUserWithEmailAndPassword(auth, email, password)
-     .then(async (userCredential) => {
-       const user = userCredential.user;
-       setDoc(doc(firestore, "users", user.uid), {
-         email: user.email,
-         username: username,
-         profile_picture: await getRandomProfile(),
-       });
-       console.log(user);
-     })
-     .catch((error) => {
-       const errorMessage = error.message;
-       Alert.alert("Error", errorMessage);
-     });
- };
+    const auth = getAuth();
+    const firestore = getFirestore(app);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        const user = userCredential.user;
+        setDoc(doc(firestore, "users", user.uid), {
+          email: user.email,
+          username: username,
+          profile_picture: await getRandomProfile(),
+        });
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        Alert.alert("Error", errorMessage);
+      });
+  };
 
   return (
     <View style={styles.wrapper}>

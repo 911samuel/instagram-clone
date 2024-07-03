@@ -11,7 +11,6 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Validator from "email-validator";
-import { app, auth } from "../../firebase"
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 

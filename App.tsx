@@ -1,9 +1,9 @@
 
 import React from "react";
-import SignedInStack from "./Navigation";
+import AuthNav from "./AuthNav";
 
 export default function App() {
   return (
-      <SignedInStack />
+     <AuthNav />
   );
 }
