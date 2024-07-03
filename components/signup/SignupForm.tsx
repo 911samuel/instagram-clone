@@ -26,23 +26,30 @@ const SignUp = ({navigation}) => {
       .min(8, "Password must be at least 8 characters"),
   });
 
-  const onSignup = async (email: string, password: string, username: string) => {
-    const auth = getAuth();
-    const firestore = getFirestore(app);
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setDoc(doc(firestore, "users", user.uid), {
-        email: user.email,
-        username: username,
-      });
-        console.log(user);
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        Alert.alert("Error", errorMessage);
-      });
-  };
+  const getRandomProfile = async () => {
+    const response = await fetch("https://randomuser.me/api");
+    const data = await response.json();
+    return data.results[0].picture.large
+  }
+
+ const onSignup = async (email: string, password: string, username: string) => {
+   const auth = getAuth();
+   const firestore = getFirestore(app);
+   createUserWithEmailAndPassword(auth, email, password)
+     .then(async (userCredential) => {
+       const user = userCredential.user;
+       setDoc(doc(firestore, "users", user.uid), {
+         email: user.email,
+         username: username,
+         profile_picture: await getRandomProfile(),
+       });
+       console.log(user);
+     })
+     .catch((error) => {
+       const errorMessage = error.message;
+       Alert.alert("Error", errorMessage);
+     });
+ };
 
   return (
     <View style={styles.wrapper}>
