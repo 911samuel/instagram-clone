@@ -11,11 +11,11 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Validator from "email-validator";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
-import { app } from "../../firebase";
+import { auth, firestore } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-const SignUp = ({navigation}) => {
+const SignUp = ({ navigation }) => {
   const SignUpSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("An email is required"),
     username: Yup.string()
@@ -33,23 +33,25 @@ const SignUp = ({navigation}) => {
   }
 
  const onSignup = async (email: string, password: string, username: string) => {
-    const auth = getAuth();
-    const firestore = getFirestore(app);
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
-        setDoc(doc(firestore, "users", user.uid), {
-          email: user.email,
-          username: username,
-          profile_picture: await getRandomProfile(),
-        });
-        console.log(user);
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        Alert.alert("Error", errorMessage);
-      });
-  };
+   try {
+     const userCredential = await createUserWithEmailAndPassword(
+       auth,
+       email,
+       password
+     );
+     const user = userCredential.user;
+
+     await setDoc(doc(firestore, "users", user.uid), {
+       email: user.email,
+       username: username,
+       profile_picture: await getRandomProfile(),
+     });
+
+     console.log(user);
+   } catch (error) {
+     Alert.alert("🔥 My lord...", error.message);
+   }
+ };
 
   return (
     <View style={styles.wrapper}>
@@ -197,7 +199,3 @@ const styles = StyleSheet.create({
 });
 
 export default SignUp;
-function then(arg0: (userCredential: any) => void) {
-  throw new Error("Function not implemented.");
-}
-
