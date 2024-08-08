@@ -1,12 +1,19 @@
 {
   "expo": {
-    "name": "blank",
-    "slug": "blank",
+    "name": "InstagramClone",
+    "slug": "instagram-clone",
     "version": "1.0.0",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ]
+    "platforms": ["ios", "android", "web"],
+    "android": {
+      "package": "com.samabayizera.instagramclone",
+      "versionCode": 1
+    },
+    "ios": {
+      "bundleIdentifier": "com.samabayizera.instagramclone",
+      "buildNumber": "1.0.0"
+    },
+    "web": {
+      "favicon": "./assets/insta_logo.png"
+    }
   }
 }
