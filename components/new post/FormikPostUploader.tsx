@@ -13,8 +13,13 @@ const uploadPostSchema = Yup.object().shape({
 });
 
 function FormikPostUploader() {
+
   const [thumbNail, setThumbNail] = useState("");
   const navigation = useNavigation();
+
+  const getUserName = () => {
+    
+  }
 
   const img = `https://picsum.photos/200/200`;
   return (

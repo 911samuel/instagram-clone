@@ -11,7 +11,7 @@ const AuthNav = () => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
-      setLoading(false); // Set loading to false once the user is determined
+      setLoading(false); 
     });
 
     return () => unsubscribe();
