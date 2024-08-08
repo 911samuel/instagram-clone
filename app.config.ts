@@ -1,7 +1,7 @@
 export default {
   expo: {
     name: "Instagram Clone",
-    slug: "your-app-slug",
+    slug: "react native instagram clone for enhancing my skills in native apps",
     extra: {
       firebaseApiKey: process.env.FIREBASE_API_KEY,
       firebaseAuthDomain: process.env.FIREBASE_AUTH_DOMAIN,
