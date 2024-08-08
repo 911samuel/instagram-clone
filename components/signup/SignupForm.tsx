@@ -12,7 +12,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Validator from "email-validator";
 import { auth, firestore } from "../../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = ({ navigation }) => {
@@ -41,15 +41,23 @@ const SignUp = ({ navigation }) => {
      );
      const user = userCredential.user;
 
-     await setDoc(doc(firestore, "users", user.uid), {
+     const userData = {
        email: user.email,
        username: username,
        profile_picture: await getRandomProfile(),
-     });
+     };
 
-     console.log(user);
+     await setDoc(doc(firestore, "users", user.uid), userData);
+
+     const userDoc = await getDoc(doc(firestore, "users", user.uid));
+     if (userDoc.exists()) {
+       console.log("User data saved successfully:", userDoc.data());
+     } else {
+       console.error("Failed to save user data");
+     }
    } catch (error) {
-     Alert.alert("🔥 My lord...", error.message);
+     console.error("Error during signup:", error);
+     Alert.alert("Signup Error", error.message);
    }
  };
 

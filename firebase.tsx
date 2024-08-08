@@ -1,23 +1,29 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth"; 
+import {
+  getAuth,
+  initializeAuth,
+  getReactNativePersistence,
+} from "firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getFirestore } from "firebase/firestore";
+import Constants from "expo-constants";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBMWUES0XOmBDUe732jhIXssCskTqJsovo",
-  authDomain: "instagram-clone-5ad77.firebaseapp.com",
-  projectId: "instagram-clone-5ad77",
-  storageBucket: "instagram-clone-5ad77.appspot.com",
-  messagingSenderId: "472726274639",
-  appId: "1:472726274639:web:c0d460614a296306f0a03a",
-  measurementId: "G-V7GS1YE8NQ",
+  apiKey: Constants.expoConfig?.extra?.firebaseApiKey,
+  authDomain: Constants.expoConfig?.extra?.firebaseAuthDomain,
+  projectId: Constants.expoConfig?.extra?.firebaseProjectId,
+  storageBucket: Constants.expoConfig?.extra?.firebaseStorageBucket,
+  messagingSenderId: Constants.expoConfig?.extra?.firebaseMessagingSenderId,
+  appId: Constants.expoConfig?.extra?.firebaseAppId,
+  measurementId: Constants.expoConfig?.extra?.firebaseMeasurementId,
 };
 
 const app = initializeApp(firebaseConfig);
 
-const analytics = getAnalytics(app);
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage),
+});
 
-const auth = getAuth(app);
 const firestore = getFirestore(app);
 
-export { app, analytics, auth, firestore };
+export { app, auth, firestore };

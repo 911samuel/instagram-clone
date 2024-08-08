@@ -3,11 +3,17 @@ import React from "react";
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
+import { auth } from "../../firebase";
 
-const Header = ({navigation}) => {
+const Header = ({ navigation }) => {
+  const handleSignOut= async () => {
+    auth.signOut()
+    console.log("Signed out successfully")
+  }
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleSignOut}>
         <Image
           style={styles.logo}
           source={require("../../assets/insta_logo.png")}

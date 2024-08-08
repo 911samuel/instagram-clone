@@ -1,6 +1,13 @@
 import { ScrollView, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  collectionGroup,
+  getFirestore,
+  onSnapshot,
+  snapshotEqual,
+} from "firebase/firestore";
+
 
 import GlobalStyles from "../GlobalStyles";
 import Header from "../components/home/Header";
@@ -10,6 +17,30 @@ import PostData from "../data/PostData";
 import BottomTab from "../components/home/BottomTab";
 
 const HomeScreen = ({ navigation }) => {
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const db = getFirestore();
+    const postsRef = collectionGroup(db, "posts");
+
+    const unsubscribe = onSnapshot(
+      postsRef,
+      (snapshot) => {
+        const postList = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPosts(postList);
+      },
+      (error) => {
+        console.error("Error fetching posts: ", error);
+      }
+    );
+
+    return () => unsubscribe(); 
+  }, []);
+
   return (
     <SafeAreaView style={[GlobalStyles.droidSafeArea, styles.container]}>
       <Header navigation={navigation} />
